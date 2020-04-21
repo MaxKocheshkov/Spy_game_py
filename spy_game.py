@@ -2,7 +2,6 @@ from urllib.parse import urlencode
 import requests
 from pprint import pprint
 import time 
-from requests.exceptions import Timeout
 
 user_id = input('Введите id пользователя 1: ')
 
@@ -99,14 +98,13 @@ def output():
             code = "var user_fr;\
                     var groups = [];\
                     var i; while(i <= user_fr.lenght){groups.push(API.groups.get({'user_id': user_fr[i], 'extended' : 1}));} return groups;"
-            time.sleep(0.5) 
-            try:
-                resalt = requests.get('https://api.vk.com/method/execute', params={'user_id': user_id, 'access_token': TOKEN, 'v': 5.103, 'code': code}, timeout = 720)
-            except Timeout:
-                print('The request timed out')
-            else:
-                print(resalt.status_code)
-                return resalt.json()
+            # time.sleep(30.0) 
+            resalt = requests.post('https://api.vk.com/method/execute',\
+                                    params={'user_id': user_id, 'access_token': TOKEN, 'v': 5.103, 'code': code})
+            pprint(resalt.status_code)
+            # time.sleep(30.0)
+            return resalt.json()
+            time.sleep(30.0)
     
 pprint(output())
 
