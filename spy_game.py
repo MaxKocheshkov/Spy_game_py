@@ -2,7 +2,7 @@ from urllib.parse import urlencode
 import requests
 from pprint import pprint
 import time 
-from init import USER
+from user_class import USER
 import datetime
 import logging
 from contextlib import contextmanager
@@ -89,7 +89,7 @@ with main:
                     },
                 )
             return find_groups.json()
-            
+
     print(f'Группы на которые подписан только пользователь {user_id}: \n')
     for i in list(difference_list):
         output_gr = GROUP(TOKEN, i)
