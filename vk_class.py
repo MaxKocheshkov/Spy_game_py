@@ -30,7 +30,6 @@ params = {
 url_us = 'https://api.vk.com/method/users.get'
 url_fr = 'https://api.vk.com/method/friends.get'
 url_gr = 'https://api.vk.com/method/groups.get'
-url_us_sub = 'https://api.vk.com/method/users.getSubscriptions'
 url_gr_bi = 'https://api.vk.com/method/groups.getById'
 
 

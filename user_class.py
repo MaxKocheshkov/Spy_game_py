@@ -29,15 +29,6 @@ class User(Vk):
         )
         return user_friends.json()
 
-    # def get_user_subscriptions(self):
-    #     params_sb = {'extended': 1, 'fields': 'members_count'}
-    #     params.update(params_sb)
-    #     user_subscriptions = requests.get(
-    #         url_us_sub,
-    #         params,
-    #     )
-    #     return user_subscriptions.json()
-
     def get_user_groups(self):
         user_group_list = []
         for user_gr in User(TOKEN, user_id).get_groups().values():
