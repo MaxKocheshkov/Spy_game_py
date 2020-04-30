@@ -1,35 +1,28 @@
 from urllib.parse import urlencode
 import requests
-from vk_class import Vk, TOKEN, user_id, params, url_fr, url_gr, url_us
+from class_vk import Vk, TOKEN, user_id, params, FRIEND_URL, GROUP_URL
 import time
 
 
 class User(Vk):
 
-    # def get_user(self):
-    #     user_info = requests.get(
-    #         url_us,
-    #         params,
-    #     )
-    #     return user_info.json()
+    def get_friends(self):
+        friends = Vk(TOKEN, user_id).get_request(FRIEND_URL, params)
+        return friends
 
     def get_groups(self):
-        user_groups = requests.get(
-            url_gr,
-            params,
-        )
-        return user_groups.json()
-
-    def get_friends(self):
-        user_friends = requests.get(
-            url_fr,
-            params,
-        )
-        return user_friends.json()  # независимо от вводимого id пользовователя выдает одинаковый набор id людей на которых не подписан пользователь
+        group_param = {'extended': 1}
+        params.update(group_param)
+        user_group = Vk(TOKEN, user_id).get_request(GROUP_URL, params)
+        return user_group
 
     def get_user_groups(self):
-        for user_gr in User(TOKEN, user_id).get_groups().values():
+        user1 = User(TOKEN, user_id)
+        user_group_list = []
+        for user_gr in user1.get_groups().values():
             us_groups = user_gr.get('items')
             time.sleep(0.5)
-            user_group_set = set(us_groups)
-        return user_group_set  # независимо от вводимого id пользовователя выдает одинаковый набор id групп на которые не подписан пользователь
+            for us_gr in us_groups:
+                user_group_list.append(us_gr.get('id'))
+                user_group_set = set(user_group_list)
+        return user_group_set

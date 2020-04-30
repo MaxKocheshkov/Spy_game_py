@@ -1,12 +1,12 @@
 from pprint import pprint
-from vk_class import TOKEN, user_id, Vk, url_gr, url_fr, url_gr_bi
 from user_class import User
 from group_class import Group
-import time
+from friend_class import Friends
+from class_vk import TOKEN, user_id
 
 
 def difference_groups():
-    difference_list = User(TOKEN, user_id).get_user_groups().difference(Group(TOKEN, user_id).get_friends_group())
+    difference_list = (User(TOKEN, user_id).get_user_groups()).difference(Friends(TOKEN, user_id).get_friends_group())
     final_group_list = []
     for i in list(difference_list):
         output_gr = Group(TOKEN, i)
@@ -21,8 +21,4 @@ def difference_groups():
 if __name__ == '__main__':
     print(f'Список групп пользователя {user_id}: {User(TOKEN, user_id).get_user_groups()}')
     print(f'Группы на которые подписан только пользователь {user_id}:')
-    print(Vk(TOKEN, user_id).log(url_fr))
-    print(Vk(TOKEN, user_id).log(url_gr))
-    print(Vk(TOKEN, user_id).log(url_gr_bi))
-    print('\r', end='')
     pprint(difference_groups())
