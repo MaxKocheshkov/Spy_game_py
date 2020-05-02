@@ -1,6 +1,5 @@
-from urllib.parse import urlencode
 import requests
-from class_vk import TOKEN, GROUP_SUB_URL
+from class_vk import GROUP_SUB_URL
 
 
 class Group:

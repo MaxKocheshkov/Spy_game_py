@@ -3,6 +3,7 @@ from user_class import User
 from group_class import Group
 from friend_class import Friends
 from class_vk import TOKEN, user_id
+import json
 
 
 def difference_groups():
@@ -21,4 +22,8 @@ def difference_groups():
 if __name__ == '__main__':
     print(f'Список групп пользователя {user_id}: {User(TOKEN, user_id).get_user_groups()}')
     print(f'Группы на которые подписан только пользователь {user_id}:')
-    pprint(difference_groups())
+    with open('groups.json', "w") as file:
+        json.dump(difference_groups(), file, sort_keys=True, indent=2)
+    with open('groups.json', 'r') as open_file:
+        group_dict = json.load(open_file)
+        pprint(group_dict)

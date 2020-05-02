@@ -1,7 +1,7 @@
-from urllib.parse import urlencode
-import requests
 from class_vk import Vk, TOKEN, user_id, params, FRIEND_URL, GROUP_URL
 import time
+from tqdm import tqdm
+import sys
 
 
 class User(Vk):
@@ -19,10 +19,13 @@ class User(Vk):
     def get_user_groups(self):
         user1 = User(TOKEN, user_id)
         user_group_list = []
+        user_group_set = set()
         for user_gr in user1.get_groups().values():
             us_groups = user_gr.get('items')
             time.sleep(0.5)
-            for us_gr in us_groups:
-                user_group_list.append(us_gr.get('id'))
-                user_group_set = set(user_group_list)
+            if us_groups is not None:
+                for us_gr in tqdm(us_groups, file=sys.__stdout__):
+                    time.sleep(0.1)
+                    user_group_list.append(us_gr.get('id'))
+                    user_group_set = set(user_group_list)
         return user_group_set

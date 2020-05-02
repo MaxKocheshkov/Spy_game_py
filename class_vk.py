@@ -1,6 +1,5 @@
-from urllib.parse import urlencode
 import requests
-import time
+
 
 user_id = input('Введите id пользователя: ')
 
@@ -29,6 +28,5 @@ class Vk:
             url,
             params,
         )
-        if response.status_code == 200:
-            print(f'Data load time: {round(time.perf_counter())}', end='\r')
         return response.json()
+
